@@ -1,15 +1,10 @@
-// Import the page's CSS. Webpack will know what to do with it.
-import "../stylesheets/app.css";
+import {default as Web3} from 'web3';
+import {default as contract} from 'truffle-contract';
 
-// Import libraries we need.
-import { default as Web3} from 'web3';
-import { default as contract } from 'truffle-contract'
+import onTheChainArtifacts from '../../build/contracts/OnTheChain.json'
 
-// Import our contract artifacts and turn them into usable abstractions.
-import metacoin_artifacts from '../../build/contracts/MetaCoin.json'
+var onTheChain = contract(onTheChainArtifacts);
 
-// MetaCoin is our usable abstraction, which we'll use through the code below.
-var MetaCoin = contract(metacoin_artifacts);
 
 // The following code is simple to show off interacting with your contracts.
 // As your needs grow you will likely need to change its form and structure.
@@ -21,8 +16,8 @@ window.App = {
   start: function() {
     var self = this;
 
-    // Bootstrap the MetaCoin abstraction for Use.
-    MetaCoin.setProvider(web3.currentProvider);
+    // Bootstrap the onTheChain abstraction for Use.
+    onTheChain.setProvider(web3.currentProvider);
 
     // Get the initial account balance so it can be displayed.
     web3.eth.getAccounts(function(err, accs) {
@@ -36,19 +31,32 @@ window.App = {
         return;
       }
 
-      accounts = accs;
-      account = accounts[0];
+      accounts = accs; // going to leave in here incase I add the functionality for a user to check their balance 
+      account = accounts[0]; 
 
-      self.refreshBalance();
+      
     });
   },
 
-  setStatus: function(message) {
-    var status = document.getElementById("status");
-    status.innerHTML = message;
-  },
 
-  refreshBalance: function() {
+getCreatorMessage: function() {
+    var self = this;
+
+    var chain;
+    onTheChain.deployed().then(function(instance) {
+      chain = instance;
+      return chian.getBalance.call();
+    }).then(function(value) {
+      var balance_element = document.getElementById("message");
+      balance_element.innerHTML = value.valueOf();
+    }).catch(function(e) {
+      console.log(e);
+      self.setStatus("Error getting balance; see log.");
+    });
+  }
+
+/*Good example - just going to comment out.
+refreshBalance: function() {
     var self = this;
 
     var meta;
@@ -63,27 +71,9 @@ window.App = {
       self.setStatus("Error getting balance; see log.");
     });
   },
+*/
 
-  sendCoin: function() {
-    var self = this;
 
-    var amount = parseInt(document.getElementById("amount").value);
-    var receiver = document.getElementById("receiver").value;
-
-    this.setStatus("Initiating transaction... (please wait)");
-
-    var meta;
-    MetaCoin.deployed().then(function(instance) {
-      meta = instance;
-      return meta.sendCoin(receiver, amount, {from: account});
-    }).then(function() {
-      self.setStatus("Transaction complete!");
-      self.refreshBalance();
-    }).catch(function(e) {
-      console.log(e);
-      self.setStatus("Error sending coin; see log.");
-    });
-  }
 };
 
 window.addEventListener('load', function() {
