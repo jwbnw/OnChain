@@ -45,7 +45,7 @@ getCreatorMessage: function() {
     var chain;
     onTheChain.deployed().then(function(instance) {
       chain = instance;
-      return chian.getBalance.call();
+      return chain.readCreatorWelcome.call();
     }).then(function(value) {
       var balance_element = document.getElementById("message");
       balance_element.innerHTML = value.valueOf();
