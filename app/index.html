@@ -1,23 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MetaCoin - Truffle Webpack Demo w/ Frontend</title>
+  <title>On The Chain</title>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <script src="./app.js"></script>
 </head>
 <body>
-  <h1>MetaCoin</h1>
+  <h1>On The Chain</h1>
   <h2>Example Truffle Dapp</h2>
-  <h3>You have <span class="black"><span id="balance"></span> META</span></h3>
+  
+  <!-- I would like to add a balance display for users I think I can do this without a .sol function but I'm not sure
+  <h3>You have <span class="black"><span id="balance"></span> ShitCoin</span></h3>
+  !-->
 
   <br>
-  <h1>Send MetaCoin</h1>
-  <br><label for="amount">Amount:</label><input type="text" id="amount" placeholder="e.g., 95"></input>
-  <br><label for="receiver">To Address:</label><input type="text" id="receiver" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"></input>
+  <h1>1) Read Creator Message/h1>
+
   <br><br><button id="send" onclick="App.sendCoin()">Send MetaCoin</button>
+
+<!-- We'll add more functionality once we get our first function call to work and get some tests set up. 
+
+  <h2>2) Send Your Message</h2>
   <br><br>
+
+  <br><label for="amount">Amount:</label><input type="text" id="amount" placeholder="e.g., 95"></input>
+  <br><label for="receiver">To Address:</label><input type="text" id="receiver" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"></input> 
+
+!-->
+
   <span id="status"></span>
   <br>
+ 
+
   <span class="hint"><strong>Hint:</strong> open the browser developer console to view any errors and warnings.</span>
 </body>
 </html>
+
+
