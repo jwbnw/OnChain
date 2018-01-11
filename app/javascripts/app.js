@@ -3,12 +3,9 @@ import {default as contract} from 'truffle-contract';
 
 import onTheChainArtifacts from '../../build/contracts/OnTheChain.json'
 
+//Create instance from contract ABI
 var onTheChain = contract(onTheChainArtifacts);
 
-
-// The following code is simple to show off interacting with your contracts.
-// As your needs grow you will likely need to change its form and structure.
-// For application bootstrapping, check out window.addEventListener below.
 var accounts;
 var account;
 
@@ -18,20 +15,19 @@ window.App = {
 
     // Bootstrap the onTheChain abstraction for Use.
     onTheChain.setProvider(web3.currentProvider);
-
+    // going to leave in here incase I add the functionality for a user to check their balance
     // Get the initial account balance so it can be displayed.
     web3.eth.getAccounts(function(err, accs) {
+      
       if (err != null) {
         alert("There was an error fetching your accounts.");
         return;
-      }
-
+      }      
       if (accs.length == 0) {
         alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
         return;
-      }
-
-      accounts = accs; // going to leave in here incase I add the functionality for a user to check their balance 
+      }     
+      accounts = accs;  
       account = accounts[0]; 
 
       
@@ -83,8 +79,8 @@ window.addEventListener('load', function() {
     // Use Mist/MetaMask's provider
     window.web3 = new Web3(web3.currentProvider);
   } else {
-    console.warn("No web3 detected. Falling back to http://127.0.0.1:9545. You should remove this fallback when you deploy live, as it's inherently insecure. Consider switching to Metamask for development. More info here: http://truffleframework.com/tutorials/truffle-and-metamask");
-    // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
+    console.warn("No web3 detected. Falling back to http://127.0.0.1:9545. Remove this fallback when you deploy live, as it's inherently insecure. Consider switching to Metamask for development. More info here: http://truffleframework.com/tutorials/truffle-and-metamask");
+    // fallback - use fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
     window.web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:9545"));
   }
 
