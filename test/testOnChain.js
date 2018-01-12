@@ -2,7 +2,7 @@
 var OnChain  = artifacts.require("./OnTheChain.sol");
 
 //open our contract in order to interact 
-contract('OnChain', function(interaction) {
+contract('OnChain .js Tests', function(interaction) {
 	it('should read the creator message',function(){
 
 		var creatorMessage;
@@ -14,7 +14,7 @@ contract('OnChain', function(interaction) {
 			assert.equal(creatorMessage,"test","Contract is returning incorrect creator welcome see stack trace or use tuffle debugger");
 		});
 	});
-	
+
 	it("should allow user to send a message and author to the contract",function(){
 
 		return OnChain.deployed().then(function(instance){
