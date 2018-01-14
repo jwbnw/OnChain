@@ -14,19 +14,28 @@
   !-->
 
   <br>
-  <h1>1) Read Creator Message</h1>
+  <h3>1) Read Creator Message</h3>
 
-  <br><br><button id="send" onclick="App.getCreatorMessage()">Get Creator Message</button>
-  <h3>The Creator Message is:<span class="black"><span id="message"></span></span></h3>
-<!-- We'll add more functionality once we get our first function call to work and get some tests set up. 
+  <br><button id="send" onclick="App.getCreatorMessage()">Get Creator Message!</button>
+  <h5>The Creator Message is:<span class="black"><span id="message"></span></span></h5>
 
-  <h2>2) Send Your Message</h2>
+  <h3>2) Send Your Message</h3>
+  <br><label for="amount">Message:</label><input type="text" id="amount" placeholder="e.g.  Hello World!"></input>
+  <br><label for="amount">Author:</label><input type="text" id="amount" placeholder="e.g. Me!"></input>
+  <br><button id="send" onclick="App.getCreatorMessage()">Send My Message!</button>
   <br><br>
 
-  <br><label for="amount">Amount:</label><input type="text" id="amount" placeholder="e.g., 95"></input>
-  <br><label for="receiver">To Address:</label><input type="text" id="receiver" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"></input> 
+  <h3>3) Read Your Message!</h3>
+  
+  <br><label for="receiver">Your address(public key) used to send origin message:</label><input type="text" id="receiver" placeholder="e.g.  0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"></input>
 
-!-->
+  <h5>Your Message is:<span class="black"><span id="returnMessage"></span></span></h5>
+  <h5>You Are:<span class="black"><span id="returnAuthor"></span></span></h5>
+  <h5>This messge was recorded on the blockchain at:<span class="black"><span id="returnTime"></span></span></h5>
+  <!-- Now that I think about it a block number would be cool too! -->
+
+   <h3>3) Get Total Message Count!</h3>
+   <h5>The Total Message count is:<span class="black"><span id="message"></span></span></h5>
 
   <span id="status"></span>
   <br>
