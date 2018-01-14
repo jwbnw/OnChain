@@ -17,7 +17,7 @@ contract('OnChain .js Tests', function(interaction) {
 	it("should allow user to send a message and author to the contract",function(){
 
 		return OnChain.deployed().then(function(instance){
-			return instance.setUserMessage("Test Message 1","Test User 1");
+			return instance.setUserMessage("Test Message 1","Test User 1", {from:interaction[0]});
 		}).then(function(result){
 			assert.isOk(result,"User Message was not set see stack trace or use tuffle debugger")
 		});
@@ -46,8 +46,30 @@ contract('OnChain .js Tests', function(interaction) {
 			assert.equal(result, 1, "Message count is inccorect see stack trace or use tuffle debugger")
 		});
 	});
-	it("should deploy a new message from a different address");
-	it("should return the correct new count");
-	it("should not allow the same address to send another message");
+	it("should deploy a new message from a different address",function(){
 
+		return OnChain.deployed().then(function(instance){
+
+			return instance.setUserMessage("Test Message 2","Test User 2", {from:interaction[1]});
+		}).then(function(result){
+			assert.isOk(result,"User Message was not set see stack trace or use tuffle debugger")
+		});
+	});
+	it("should return the correct new count", function(){
+
+		return OnChain.deployed().then(function(instance){
+			return instance.getMessageCount.call();
+
+		}).then(function(result){
+			assert.equal(result, 2, "Message count is inccorect see stack trace or use tuffle debugger")
+		});
+	});
+	it("should not allow the same address to send another message", function(){
+
+		return OnChain.deployed().then(function(instance){
+			return instance.setUserMessage("Test Message 1 again","Test User 1 again", {from:interaction[0]});
+		}).then(function(result){
+			assert.isNotOk(result,"User Message sent from the same address set see stack trace or use tuffle debugger")
+		});
+	});
 });
