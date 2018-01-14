@@ -66,10 +66,32 @@ contract('OnChain .js Tests', function(interaction) {
 	});
 	it("should not allow the same address to send another message", function(){
 
+		
 		return OnChain.deployed().then(function(instance){
 			return instance.setUserMessage("Test Message 1 again","Test User 1 again", {from:interaction[0]});
 		}).then(function(result){
-			assert.fail(result,"User Message sent from the same address set see stack trace or use tuffle debugger")
+
+			var resultString = result.toString();
+			assert.notEqual(resultString,"[object Object]","Was able to send a duplicate message from the same address")
+	
+		}).catch(function(err){
+			
+			//Here we want to check the type of error to make sure it is what we expect, there is probably a better way to do this. 			
+			var passFlag = false;
+			var errMsg = err.toString();
+			var len = errMsg.length;
+
+			if  (errMsg == "AssertionError: Was able to send a duplicate message from the same address: expected '[object Object]' to not equal '[object Object]'"){
+
+				passFlag = false;
+
+			}
+			else if (errMsg == 'Error: VM Exception while processing transaction: revert'){
+				passFlag = true;
+			}
+			assert.isTrue(passFlag,'Should throw an err')
+			
 		});
 	});
+
 });
