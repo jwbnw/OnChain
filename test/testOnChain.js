@@ -34,7 +34,20 @@ contract('OnChain .js Tests', function(interaction) {
 
 			assert.equal(result1,"Test Message 1", "Message is not equal to user message");
 			assert.equal(result2,"Test User 1", "Message is not equal to user message");
-			assert.isNotNull(result3,"the timestamp did not register");
+			assert.isNotNull(result3,"the timestamp did not register see stack trace or use tuffle debugger");
 		});
 	});
+	it("should get the count of total messages stored", function(){
+
+		return OnChain.deployed().then(function(instance){
+			return instance.getMessageCount.call();
+
+		}).then(function(result){
+			assert.equal(result, 1, "Message count is inccorect see stack trace or use tuffle debugger")
+		});
+	});
+	it("should deploy a new message from a different address");
+	it("should return the correct new count");
+	it("should not allow the same address to send another message");
+
 });
