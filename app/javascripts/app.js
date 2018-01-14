@@ -16,7 +16,7 @@ window.App = {
     // Bootstrap the onTheChain abstraction for Use.
     onTheChain.setProvider(web3.currentProvider);
     // going to leave in here incase I add the functionality for a user to check their balance
-    // Get the initial account balance so it can be displayed.
+    // Get the initial account info.
     web3.eth.getAccounts(function(err, accs) {
       
       if (err != null) {
@@ -35,6 +35,12 @@ window.App = {
   },
 
 
+  setStatus: function(message) {
+    var status = document.getElementById("status");
+    status.innerHTML = message;
+  },
+
+
 getCreatorMessage: function() {
     var self = this;
 
@@ -49,7 +55,37 @@ getCreatorMessage: function() {
       console.log(e);
       self.setStatus("Error getting balance; see log.");
     });
-  }
+  },
+  
+
+
+setUserMessage: function() {
+ 
+  var self = this;
+
+  var userMessage = document.getElementById("returnMessage");
+  var userSignature = document.getElementById('returnAuthor');
+
+  this.setStatus("Initiating transaction... (please wait)");
+
+  var chain;
+  onTheChain.deployed().then(function(instance){
+    chain = instance;
+    return chain.setUserMessage(userMessage,userSignature,{from:account});
+  }).then(function(value){
+
+    var outputInformation = value.toString();
+    self.setStatus("Transaction complete!");
+    var stringResult = document.getElementById("stringResult");
+    stringResult.innerHTML = outputInformation;
+  }).catch(function(e){
+    console.log(e);
+     self.setStatus("Error sending data; see log.");
+  })
+
+}
+
+
 
 /*Good example - just going to comment out.
 refreshBalance: function() {
