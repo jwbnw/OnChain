@@ -1,4 +1,4 @@
-//Note: This test file is more for a development outline and to help with TDD; hence the use of the throwProxy. Please see .js tests for more testing on smart contracts functionality 
+//Note: This test file is more for a development outline and to help me TDD/Unit Test my sol contract; hence the use of the throwProxy. Please see .js tests for more testing on smart contracts functionality 
 
 pragma solidity ^0.4.18;
 
