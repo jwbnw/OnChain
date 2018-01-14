@@ -3,11 +3,18 @@ pragma solidity ^0.4.18;
 
 	contract OnTheChain {
 		
+		
+
+
+
+
+
 		struct MessageInfo {
 
 			string userMessage;
 			string author;
 			uint createTime;
+			bool isValue;
 
 		}
 		address[] public addressList;
@@ -31,13 +38,17 @@ pragma solidity ^0.4.18;
 
 		function setUserMessage(string _userMessage, string _userSig) {
 
-			var message = messageInfoMap[msg.sender];
 
+			if(messageInfoMap[msg.sender].isValue) revert();
+
+			var message = messageInfoMap[msg.sender];
+			
 			message.userMessage = _userMessage;
 			message.author = _userSig;
 			message.createTime = now;
+			message.isValue = true;
 
-			addressList.push(msg.sender); // Note: a -1 here would append new items in the [0] position as opposed to the [n] position where n is arr.length not using now but a useful thing to know 
+			addressList.push(msg.sender); 
 
 		}
 

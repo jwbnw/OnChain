@@ -69,7 +69,7 @@ contract('OnChain .js Tests', function(interaction) {
 		return OnChain.deployed().then(function(instance){
 			return instance.setUserMessage("Test Message 1 again","Test User 1 again", {from:interaction[0]});
 		}).then(function(result){
-			assert.isNotOk(result,"User Message sent from the same address set see stack trace or use tuffle debugger")
+			assert.fail(result,"User Message sent from the same address set see stack trace or use tuffle debugger")
 		});
 	});
 });
