@@ -31,6 +31,8 @@ window.App = {
       account = accounts[0]; 
 
       
+
+      
     });
   },
 
