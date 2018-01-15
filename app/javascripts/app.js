@@ -73,7 +73,7 @@ setUserMessage: function() {
   var chain;
   onTheChain.deployed().then(function(instance){
     chain = instance;
-    return chain.setUserMessage(userMessage,userSignature,{from:account});
+    return chain.setUserMessage(userMessage,userSignature,{from:account, gas: 1000000});
   }).then(function(value){
 
     var outputInformation = value.toString();
@@ -117,9 +117,9 @@ window.addEventListener('load', function() {
     // Use Mist/MetaMask's provider
     window.web3 = new Web3(web3.currentProvider);
   } else {
-    console.warn("No web3 detected. Falling back to http://127.0.0.1:9545. Remove this fallback when you deploy live, as it's inherently insecure. Consider switching to Metamask for development. More info here: http://truffleframework.com/tutorials/truffle-and-metamask");
+    console.warn("No web3 detected. Falling back to http://127.0.0.1:8545. Remove this fallback when you deploy live, as it's inherently insecure. Consider switching to Metamask for development. More info here: http://truffleframework.com/tutorials/truffle-and-metamask");
     // fallback - use fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
-    window.web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:9545"));
+    window.web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
   }
 
   App.start();
