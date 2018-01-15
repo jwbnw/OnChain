@@ -28,11 +28,15 @@ window.App = {
         return;
       }     
       accounts = accs;  
-      account = accounts[0]; 
+      account = accounts[0];
 
-      
-
-      
+      //For Testing
+      account1 = accounts[1];
+      account2 = accounts[2];
+      account3 = accounts[3];
+      account4 = accounts[4];
+      account5 = accounts[5];
+      account6 = accounts[6];
     });
   },
 
@@ -76,10 +80,22 @@ setUserMessage: function() {
     return chain.setUserMessage(userMessage,userSignature,{from:account, gas: 1000000});
   }).then(function(value){
 
-    var outputInformation = value.toString();
+    var outputInformation = value;
+
+    var outputTransactionReceipt = outputInformation.receipt.transactionHash;
+    var outputTransactionBlockNumber = outputInformation.receipt.blockNumber;
+    var outputTransactionGasUsed = outputInformation.receipt.gasUsed;
+
     self.setStatus("Transaction complete!");
-    var stringResult = document.getElementById("stringResult");
-    stringResult.innerHTML = outputInformation;
+
+    var transactionReceipt = document.getElementById("transactionReceipt");
+    var blockNumber = document.getElementById("blockNumber");
+    var gasUsed = document.getElementById("gasUsed");
+
+    transactionReceipt.innerHTML = outputTransactionReceipt;
+    blockNumber.innerHTML = outputTransactionBlockNumber;
+    gasUsed.innerHTML = outputTransactionGasUsed;
+
   }).catch(function(e){
     console.log(e);
      self.setStatus("Error sending data; see log.");
