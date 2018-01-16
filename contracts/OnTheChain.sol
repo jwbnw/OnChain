@@ -32,8 +32,8 @@ pragma solidity ^0.4.18;
 
 		function setUserMessage(string _userMessage, string _userSig) {
 
-
-			if(messageInfoMap[msg.sender].isValue) revert();
+			//Commenting out for testing 
+			//if(messageInfoMap[msg.sender].isValue) revert();
 
 			var message = messageInfoMap[msg.sender];
 			

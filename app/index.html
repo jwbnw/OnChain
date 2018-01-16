@@ -31,8 +31,8 @@
 
   <h3>3) Read Your Message!</h3>
   
-  <br><label for="receiver">Your address(public key) used to send origin message:</label><input type="text" id="receiver" placeholder="e.g.  0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"></input>
-
+  <br><label for="receiver">Your address(public key) used to send origin message:</label><input type="text" id="userAddress" placeholder="e.g.  0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"></input>
+  <br><button id="send" onclick="App.getUserMessage()">Get My Message!</button>
   <h5>Your Message is:<span class="black"><span id="returnMessage"></span></span></h5>
   <h5>You Are:<span class="black"><span id="returnAuthor"></span></span></h5>
   <h5>This messge was recorded on the blockchain at:<span class="black"><span id="returnTime"></span></span></h5>

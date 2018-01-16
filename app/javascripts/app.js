@@ -31,12 +31,7 @@ window.App = {
       account = accounts[0];
 
       //For Testing
-      account1 = accounts[1];
-      account2 = accounts[2];
-      account3 = accounts[3];
-      account4 = accounts[4];
-      account5 = accounts[5];
-      account6 = accounts[6];
+
     });
   },
 
@@ -99,12 +94,49 @@ setUserMessage: function() {
   }).catch(function(e){
     console.log(e);
      self.setStatus("Error sending data; see log.");
-  })
+  });
+},
+
+
+  getUserMessage: function() {
+
+    var self = this;
+
+    //var userGetMessageAddress = parseInt(document.getElementById("userAddress").value);
+    var userGetMessageAddress = document.getElementById("userAddress").value;
+    //var theAddressA = stringToByte(userGetMessageAddress);
+    //var theAddressB = web3.toHex(theAddressA);
+
+    var chain;
+    var accntToSend = userGetMessageAddress.valueOf();
+    onTheChain.deployed().then(function(instance){
+    	
+      //var accntToSend = 0x51b859d1c87ca72988ca1ea61ceb28181e6c9df3;
+
+      chain = instance;
+      return chain.getUserMessage.call(accntToSend);
+  }).then(function(valueR){
+
+    var userMessage = valueR[0].toString();
+    var userName = valueR[1].toString();
+  //  var userTime = new Date(value[2]*1000);
+
+
+    var userReturnMessage = document.getElementById("returnMessage");
+    var userReturnAuthor = document.getElementById("returnAuthor");
+   // var userReturnTimeStamp = document.getElementById("returnTime");
+  
+    userReturnMessage.innerHTML = userMessage;
+    userReturnAuthor.innerHTML = userName;
+   // userReturnTimeStamp.innerHTML = userTime;
+
+  }).catch(function(e){
+    console.log(e);
+    self.setStatus("Error getting data; see log")
+  });
+
 
 }
-
-
-
 /*Good example - just going to comment out.
 refreshBalance: function() {
     var self = this;
