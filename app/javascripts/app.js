@@ -64,8 +64,8 @@ setUserMessage: function() {
  
   var self = this;
 
-  var userMessage = document.getElementById("returnMessage");
-  var userSignature = document.getElementById('returnAuthor');
+  var userMessage = document.getElementById("userMessage").value;
+  var userSignature = document.getElementById('userSignature').value;
 
   this.setStatus("Initiating transaction... (please wait)");
 
@@ -102,37 +102,36 @@ setUserMessage: function() {
 
     var self = this;
 
+    var userGetMessageAddress = parseInt(document.getElementById("userAddress").value,16);
     //var userGetMessageAddress = parseInt(document.getElementById("userAddress").value);
-    var userGetMessageAddress = document.getElementById("userAddress").value;
     //var theAddressA = stringToByte(userGetMessageAddress);
     //var theAddressB = web3.toHex(theAddressA);
-
+    var accntToSend = "0xb5e64ce9e95556c5588a1e5e192060cd415c6eed";
     var chain;
-    var accntToSend = userGetMessageAddress.valueOf();
-    onTheChain.deployed().then(function(instance){
-    	
-      //var accntToSend = 0x51b859d1c87ca72988ca1ea61ceb28181e6c9df3;
-
+    //var accntToSend = userGetMessageAddress.valueOf();
+    onTheChain.deployed().then(function(instance){  
       chain = instance;
       return chain.getUserMessage.call(accntToSend);
-  }).then(function(valueR){
+  }).then(function(result){
 
-    var userMessage = valueR[0].toString();
-    var userName = valueR[1].toString();
-  //  var userTime = new Date(value[2]*1000);
+    var userMessage = result[0].toString();
+    var userName = result[1].toString();
+    var userTime = new Date(result[2]*1000);
+
+    //var userDate = new Date(userTime*1000)
 
 
     var userReturnMessage = document.getElementById("returnMessage");
     var userReturnAuthor = document.getElementById("returnAuthor");
-   // var userReturnTimeStamp = document.getElementById("returnTime");
+    var userReturnTimeStamp = document.getElementById("returnTime");
   
     userReturnMessage.innerHTML = userMessage;
     userReturnAuthor.innerHTML = userName;
-   // userReturnTimeStamp.innerHTML = userTime;
+    userReturnTimeStamp.innerHTML = userTime;
 
   }).catch(function(e){
     console.log(e);
-    self.setStatus("Error getting data; see log")
+    self.setStatus("Error getting data; see log");
   });
 
 
