@@ -102,16 +102,16 @@ setUserMessage: function() {
 
     var self = this;
 
-    var userGetMessageAddress = parseInt(document.getElementById("userAddress").value,16);
+    var userGetMessageAddress = document.getElementById("userAddress").value;
     //var userGetMessageAddress = parseInt(document.getElementById("userAddress").value);
     //var theAddressA = stringToByte(userGetMessageAddress);
     //var theAddressB = web3.toHex(theAddressA);
-    var accntToSend = "0xb5e64ce9e95556c5588a1e5e192060cd415c6eed";
+    //var accntToSend = "0xb5e64ce9e95556c5588a1e5e192060cd415c6eed";
     var chain;
     //var accntToSend = userGetMessageAddress.valueOf();
     onTheChain.deployed().then(function(instance){  
       chain = instance;
-      return chain.getUserMessage.call(accntToSend);
+      return chain.getUserMessage.call(userGetMessageAddress);
   }).then(function(result){
 
     var userMessage = result[0].toString();
