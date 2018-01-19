@@ -1,23 +1,55 @@
 <!DOCTYPE html>
-<html>
-<head>
+  <html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <meta name = "description" content="TO DO">
+      <meta name = "author" content="">
+
   <title>On The Chain</title>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+
   <script src="./app.js"></script>
 </head>
 <body>
-  <h1>On The Chain</h1>
+  <h1>On Chain</h1>
   <h2>Example Truffle Dapp</h2>
   
   <!-- I would like to add a balance display for users I think I can do this without a .sol function but I'm not sure
   <h3>You have <span class="black"><span id="balance"></span>Coin</span></h3>
   !-->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">On Chain</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">JWBDev</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 
-  <br>
+    <div class="container">
+
+      <div class="Main-template">
+        <br>
   <h3>1) Read Creator Message</h3>
 
   <br><button id="send" onclick="App.getCreatorMessage()">Get Creator Message!</button>
-  <h5>The Creator Message is:<span class="black"><span id="message"></span></span></h5>
+  <h5>The Creator Message is: <span class="black"><span id="message"></span></span></h5>
 
   <h3>2) Send Your Message</h3>
   <br><label for="amount">Message:</label><input type="text" id="userMessage" placeholder="e.g.  Hello World!"></input>
@@ -47,7 +79,19 @@
  
 
   <span class="hint"><strong>Hint:</strong> open the browser developer console to view any errors and warnings.</span>
-</body>
+        
+      </div>
+
+    </div><!-- /.container -->
+
+
+
+
+
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+  </body>
 </html>
 
 
