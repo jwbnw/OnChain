@@ -15,8 +15,8 @@ window.App = {
 
     // Bootstrap the onTheChain abstraction for Use.
     onTheChain.setProvider(web3.currentProvider);
-    // going to leave in here incase I add the functionality for a user to check their balance
-    // Get the initial account info.
+
+    // Get user account info
     web3.eth.getAccounts(function(err, accs) {
       
       if (err != null) {
@@ -36,125 +36,111 @@ window.App = {
   },
 
 
-  setStatus: function(message) {
-    var status = document.getElementById("status");
-    status.innerHTML = message;
-  },
+	setStatus: function(message) {
+    	
+    	var status = document.getElementById("status");
+    	status.innerHTML = message;
+  	},
 
 
-getCreatorMessage: function() {
-    var self = this;
-
-    var chain;
-    onTheChain.deployed().then(function(instance) {
-      chain = instance;
-      return chain.readCreatorWelcome.call();
-    }).then(function(value) {
-      var balance_element = document.getElementById("message");
-      balance_element.innerHTML = value.valueOf();
-    }).catch(function(e) {
-      console.log(e);
-      self.setStatus("Error getting balance; see log.");
-    });
-  },
+	getCreatorMessage: function() {
+    	
+    	var self = this;
+    	var chain;
+    	
+    	onTheChain.deployed().then(function(instance) {
+      		chain = instance;
+      		return chain.readCreatorWelcome.call();
+    	}).then(function(value) {     		
+      		var balance_element = document.getElementById("message");
+      		balance_element.innerHTML = value.valueOf();
+    	}).catch(function(e) {
+      		console.log(e);
+      		self.setStatus("Error getting balance; see log.");
+    	});
+  	},
   
 
 
-setUserMessage: function() {
+	setUserMessage: function() {
  
-  var self = this;
+  	var self = this;
+  	var chain;
 
-  var userMessage = document.getElementById("userMessage").value;
-  var userSignature = document.getElementById('userSignature').value;
+  	var userMessage = document.getElementById("userMessage").value;
+  	var userSignature = document.getElementById('userSignature').value;
+  	this.setStatus("Initiating transaction... (please wait)");
+  		onTheChain.deployed().then(function(instance){
+    		
+    		chain = instance;
+    		return chain.setUserMessage(userMessage,userSignature,{from:account, gas: 1000000});
+  		
+  		}).then(function(value){   		
+    		var outputInformation = value;
+    		var outputTransactionReceipt = outputInformation.receipt.transactionHash;
+    		var outputTransactionBlockNumber = outputInformation.receipt.blockNumber;
+    		var outputTransactionGasUsed = outputInformation.receipt.gasUsed;
 
-  this.setStatus("Initiating transaction... (please wait)");
+    		self.setStatus("Transaction complete!");
 
-  var chain;
-  onTheChain.deployed().then(function(instance){
-    chain = instance;
-    return chain.setUserMessage(userMessage,userSignature,{from:account, gas: 1000000});
-  }).then(function(value){
+    		var transactionReceipt = document.getElementById("transactionReceipt");
+    		var blockNumber = document.getElementById("blockNumber");
+    		var gasUsed = document.getElementById("gasUsed");
 
-    var outputInformation = value;
-
-    var outputTransactionReceipt = outputInformation.receipt.transactionHash;
-    var outputTransactionBlockNumber = outputInformation.receipt.blockNumber;
-    var outputTransactionGasUsed = outputInformation.receipt.gasUsed;
-
-    self.setStatus("Transaction complete!");
-
-    var transactionReceipt = document.getElementById("transactionReceipt");
-    var blockNumber = document.getElementById("blockNumber");
-    var gasUsed = document.getElementById("gasUsed");
-
-    transactionReceipt.innerHTML = outputTransactionReceipt;
-    blockNumber.innerHTML = outputTransactionBlockNumber;
-    gasUsed.innerHTML = outputTransactionGasUsed;
-
-  }).catch(function(e){
-    console.log(e);
-     self.setStatus("Error sending data; see log.");
-  });
-},
+    		transactionReceipt.innerHTML = outputTransactionReceipt;
+    		blockNumber.innerHTML = outputTransactionBlockNumber;
+    		gasUsed.innerHTML = outputTransactionGasUsed;
+  		}).catch(function(e){
+    		console.log(e);
+     		self.setStatus("Error sending data; see log.");
+  		});
+	},
 
 
-  getUserMessage: function() {
+  	getUserMessage: function() {
 
-    var self = this;
+    	var self = this;
+    	var userGetMessageAddress = document.getElementById("userAddress").value;
+    	var chain;
+    	onTheChain.deployed().then(function(instance){  
+      		chain = instance;
+      		return chain.getUserMessage.call(userGetMessageAddress);
+  		}).then(function(result){
 
-    var userGetMessageAddress = document.getElementById("userAddress").value;
-    //var userGetMessageAddress = parseInt(document.getElementById("userAddress").value);
-    //var theAddressA = stringToByte(userGetMessageAddress);
-    //var theAddressB = web3.toHex(theAddressA);
-    //var accntToSend = "0xb5e64ce9e95556c5588a1e5e192060cd415c6eed";
-    var chain;
-    //var accntToSend = userGetMessageAddress.valueOf();
-    onTheChain.deployed().then(function(instance){  
-      chain = instance;
-      return chain.getUserMessage.call(userGetMessageAddress);
-  }).then(function(result){
+    		var userMessage = result[0].toString();
+    		var userName = result[1].toString();
+    		var userDateTime = new Date(result[2]*1000);
 
-    var userMessage = result[0].toString();
-    var userName = result[1].toString();
-    var userTime = new Date(result[2]*1000);
-
-    //var userDate = new Date(userTime*1000)
-
-
-    var userReturnMessage = document.getElementById("returnMessage");
-    var userReturnAuthor = document.getElementById("returnAuthor");
-    var userReturnTimeStamp = document.getElementById("returnTime");
+    		var userReturnMessage = document.getElementById("returnMessage");
+    		var userReturnAuthor = document.getElementById("returnAuthor");
+    		var userReturnTimeStamp = document.getElementById("returnTime");
   
-    userReturnMessage.innerHTML = userMessage;
-    userReturnAuthor.innerHTML = userName;
-    userReturnTimeStamp.innerHTML = userTime;
+    		userReturnMessage.innerHTML = userMessage;
+    		userReturnAuthor.innerHTML = userName;
+    		userReturnTimeStamp.innerHTML = userDateTime;
+  		}).catch(function(e){
+    		console.log(e);
+    		self.setStatus("Error getting data; see log");
+  			});
+		},
 
-  }).catch(function(e){
-    console.log(e);
-    self.setStatus("Error getting data; see log");
-  });
+	getTotalMessageCount: function() {
 
+		var self = this;
+		var chain;
+		onTheChain.deployed().then(function(instance){
+			chain = instance;
+			return chain.getMessageCount.call();
+		}).then(function(result){			
+			var messageCount = result.valueOf();
+			var userReturnMessageCount = document.getElementById("messageCount");
 
-}
-/*Good example - just going to comment out.
-refreshBalance: function() {
-    var self = this;
-
-    var meta;
-    MetaCoin.deployed().then(function(instance) {
-      meta = instance;
-      return meta.getBalance.call(account, {from: account});
-    }).then(function(value) {
-      var balance_element = document.getElementById("balance");
-      balance_element.innerHTML = value.valueOf();
-    }).catch(function(e) {
-      console.log(e);
-      self.setStatus("Error getting balance; see log.");
-    });
-  },
-*/
-
-
+			userReturnMessageCount.innerHTML = messageCount; 
+		}).catch(function(e){
+			console.log(e);
+			self.setStatus("Error getting messageCount; see log");
+		});
+	}
 };
 
 window.addEventListener('load', function() {
