@@ -95,6 +95,11 @@ window.App = {
     		gasUsed.innerHTML = outputTransactionGasUsed;
   		}).catch(function(e){
     		console.log(e);
+         var errMsg = e.toString();
+        
+        if (errMsg == 'Error: VM Exception while processing transaction: revert'){
+        alert("Error, you have already sent a message from that address! If this is not the case please check the console log for more details");
+      }
      		self.setStatus("Error sending data; see log.");
   		});
 	},
@@ -123,6 +128,7 @@ window.App = {
     		userReturnTimeStamp.innerHTML = userDateTime;
   		}).catch(function(e){
     		console.log(e);
+       
     		self.setStatus("Error getting data; see log");
   			});
 		},
