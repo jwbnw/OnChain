@@ -1,15 +1,16 @@
 body {
     padding-top: 50px;
-background-color: #fff; 
-background-image: 
-linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
-linear-gradient(#eee .1em, transparent .1em);
-background-size: 100% 1.2em;
+    background-color: #fff;
+    background-image: linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
+    linear-gradient(#eee .1em, transparent .1em);
+    background-size: 100% 1.2em;
+}
 
-    }
-    .starter-template {
-      padding: 40px 15px;
-    }
-    h1, h2 {
-      text-align: center;
-    }
+.starter-template {
+    padding: 40px 15px;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
